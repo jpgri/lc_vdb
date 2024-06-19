@@ -87,3 +87,30 @@ dataset_path = f"hub://{activeloop_org_id}/{activeloop_dataset_name}"
 db = DeepLake(dataset_path=dataset_path, embedding=embeddings)
 
 # %%
+db.add_documents(docs)
+# %% Retrieval QA cain as a tool:
+from langchain.agents import AgentType, Tool, initialize_agent
+
+retrieval_qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=db.as_retriever())
+
+tools = [
+    Tool(
+        name="Retrieval QA System",
+        func=retrieval_qa.run,
+        description="Useful for answering questions.",
+    )
+]
+
+
+agent = initialize_agent(
+    tools,
+    llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True,
+)
+# %% Use the agent to ask question.
+
+response = agent.run("When was Napoleon born?")
+print(response)
+
+# %%
