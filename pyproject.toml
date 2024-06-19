@@ -14,20 +14,22 @@ description = ""
 authors = ["Juan Pablo Gonzalez <jpgrivero@gmail.com>"]
 readme = "README.md"
 
+
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.8.1"
+deeplake = {extras = ["enterprise"], version = "^3.9.8"}
 langchain = "^0.2.1"
-deeplake = "3.6.5"
-openai = "0.27.8"
-tiktoken = "^0.7.0"
-selenium = "^4.21.0"
+openai = "^1.30.3"
 python-dotenv = "^1.0.1"
+langchain-community = "^0.2.1"
+tiktoken = "^0.7.0"
 
 
 [tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
 flake8 = "^7.0.0"
 black = "^24.4.2"
-isort = "^5.13.2"
+ipykernel = "^6.29.4"
 
 [build-system]
 requires = ["poetry-core"]
